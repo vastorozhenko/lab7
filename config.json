@@ -1,0 +1,60 @@
+{
+  "admin": {
+    "host": "127.0.0.1",
+    "port": 8081
+  },
+  "logging": {
+    "path": "logs/events.jsonl"
+  },
+  "services": [
+    {
+      "proto": "TCP",
+      "listen_host": "0.0.0.0",
+      "listen_port": 8080,
+      "target_host": "example.org",
+      "target_port": 80
+    },
+    {
+      "proto": "UDP",
+      "listen_host": "0.0.0.0",
+      "listen_port": 5353,
+      "target_host": "8.8.8.8",
+      "target_port": 53
+    }
+  ],
+  "rules": [
+    {
+      "priority": 5,
+      "id": 2,
+      "action": "allow",
+      "src_ip_cidr": "127.0.0.1/32",
+      "dst_ip_cidr": "0.0.0.0/0",
+      "src_port": 0,
+      "dst_port": 80,
+      "proto": "TCP",
+      "enabled": false
+    },
+    {
+      "priority": 10,
+      "id": 1,
+      "action": "deny",
+      "src_ip_cidr": "0.0.0.0/0",
+      "dst_ip_cidr": "0.0.0.0/0",
+      "src_port": 0,
+      "dst_port": 80,
+      "proto": "TCP",
+      "enabled": true
+    },
+    {
+      "priority": 10,
+      "id": 4,
+      "action": "deny",
+      "src_ip_cidr": "0.0.0.0/0",
+      "dst_ip_cidr": "0.0.0.0/0",
+      "src_port": 0,
+      "dst_port": 53,
+      "proto": "UDP",
+      "enabled": true
+    }
+  ]
+}
